@@ -1,10 +1,11 @@
 import { OrbitControls, Sky } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { useControls } from "leva";
 import React from "react";
+import { DoubleSide, RepeatWrapping, TextureLoader } from "three";
 import { useRandomPosition } from "../../hooks/useRandomPositions";
 import { SimpleTree } from "../SimpleTree/SimpleTree";
-import { Weather } from "./constants";
+import { Weather, WEATHER_FLOOR_TEXTURES } from "./constants";
 
 interface MainSceneProps {
   selectedWeather: Weather;
@@ -12,6 +13,31 @@ interface MainSceneProps {
 
 const MainScene = ({ selectedWeather }: MainSceneProps) => {
   const { positions } = useRandomPosition({ elementLength: 100, spread: 95 });
+
+  const weatherTexture = WEATHER_FLOOR_TEXTURES[selectedWeather];
+
+  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
+    TextureLoader,
+    weatherTexture
+  );
+
+  const WIDTH = 10;
+  const HEIGHT = 10;
+
+  colorMap.repeat.set(WIDTH, HEIGHT);
+  colorMap.wrapS = colorMap.wrapT = RepeatWrapping;
+
+  displacementMap.repeat.set(WIDTH, HEIGHT);
+  displacementMap.wrapS = displacementMap.wrapT = RepeatWrapping;
+
+  normalMap.repeat.set(WIDTH, HEIGHT);
+  normalMap.wrapS = normalMap.wrapT = RepeatWrapping;
+
+  roughnessMap.repeat.set(WIDTH, HEIGHT);
+  roughnessMap.wrapS = roughnessMap.wrapT = RepeatWrapping;
+
+  aoMap.repeat.set(WIDTH, HEIGHT);
+  aoMap.wrapS = aoMap.wrapT = RepeatWrapping;
 
   const { floatIntensity, floatSpeed } = useControls("Trees", {
     floatIntensity: {
@@ -50,6 +76,7 @@ const MainScene = ({ selectedWeather }: MainSceneProps) => {
           position={[position.x, 0, position.z]}
           floatIntensity={floatIntensity}
           floatSpeed={floatSpeed}
+          selectedWeather={selectedWeather}
         />
       ))}
 
@@ -59,8 +86,18 @@ const MainScene = ({ selectedWeather }: MainSceneProps) => {
         rotation-x={-Math.PI * 0.5}
         scale={100}
       >
-        <circleGeometry />
-        <meshStandardMaterial color={"green"} />
+        <planeGeometry args={[2, 2, 200, 200]} />
+        <meshStandardMaterial
+          aoMap={aoMap}
+          roughnessMap={roughnessMap}
+          normalMap={normalMap}
+          displacementMap={displacementMap}
+          map={colorMap}
+          displacementBias={-0.01}
+          displacementScale={0.02}
+          side={DoubleSide}
+          attach="material"
+        />
       </mesh>
     </>
   );

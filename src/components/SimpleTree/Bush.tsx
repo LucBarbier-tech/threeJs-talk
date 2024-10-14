@@ -1,5 +1,8 @@
 import { Float, PivotControls } from "@react-three/drei";
+import { useLoader } from "@react-three/fiber";
 import { useControls } from "leva";
+import { TextureLoader } from "three";
+import { LEAFS_TEXTURES } from "../Fiber/constants";
 
 interface BushProps {
   debugName: string;
@@ -7,6 +10,7 @@ interface BushProps {
   enablePivot?: boolean;
   floatIntensity?: number;
   floatSpeed?: number;
+  color?: string;
 }
 
 export const Bush = ({
@@ -15,7 +19,13 @@ export const Bush = ({
   enablePivot = false,
   floatIntensity,
   floatSpeed,
+  color,
 }: BushProps) => {
+  const [, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
+    TextureLoader,
+    LEAFS_TEXTURES
+  );
+
   const { position: BushPosition } = useControls(debugName, {
     position: {
       value: defaultPosition,
@@ -33,7 +43,14 @@ export const Bush = ({
         >
           <mesh scale={1.5} castShadow position={BushPosition}>
             <sphereGeometry />
-            <meshStandardMaterial color="green" />
+            <meshStandardMaterial
+              aoMap={aoMap}
+              roughnessMap={roughnessMap}
+              normalMap={normalMap}
+              displacementMap={displacementMap}
+              displacementScale={0.01}
+              color={color}
+            />
           </mesh>
         </Float>
       </PivotControls>
