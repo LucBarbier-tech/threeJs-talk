@@ -6,7 +6,7 @@ export const Header = () => {
       <nav className="navbar">
         <div className="navbar-left">
           <a href="/" className="logo">
-            ThreeJs Talk
+            R3F Talk
           </a>
         </div>
         <div className="navbar-center">
@@ -15,7 +15,13 @@ export const Header = () => {
               <a href="/benchmark">Benchmark</a>
             </li>
             <li>
-              <a href="/fiber">ReactFiber</a>
+              <a href="/simple-scene">SimpleScene</a>
+            </li>
+            <li>
+              <a href="/fiber">FullDemo</a>
+            </li>
+            <li>
+              <a href="/thanks">Thanks</a>
             </li>
           </ul>
         </div>

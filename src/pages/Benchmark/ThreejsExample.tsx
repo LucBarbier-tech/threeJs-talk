@@ -47,13 +47,12 @@ export const ThreejsExample = () => {
 
       geometry.dispose();
       material.dispose();
-
       renderer.dispose();
     };
   }, []);
 
   return (
-    <div
+    <section
       style={{
         display: "flex",
         alignItems: "center",
@@ -63,6 +62,6 @@ export const ThreejsExample = () => {
     >
       <p>{"ThreeJs"}</p>
       <div style={{ width: "100%", height: "100%" }} ref={mountRef} />
-    </div>
+    </section>
   );
 };

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-interface UseRandomPosition {
+interface UseRandomPositionProps {
   elementLength: number;
   spread: number;
 }
@@ -8,7 +8,7 @@ interface UseRandomPosition {
 export const useRandomPosition = ({
   elementLength,
   spread,
-}: UseRandomPosition) => {
+}: UseRandomPositionProps) => {
   const positions = useMemo(() => {
     const positionsArr: { x: number; z: number }[] = [];
 

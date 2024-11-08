@@ -178,7 +178,7 @@ export const WebglExample = () => {
   }, []);
 
   return (
-    <div
+    <section
       style={{
         display: "flex",
         alignItems: "center",
@@ -188,6 +188,6 @@ export const WebglExample = () => {
     >
       <p>{"Webgl"}</p>
       <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
-    </div>
+    </section>
   );
 };

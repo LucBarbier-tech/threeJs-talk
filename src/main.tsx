@@ -3,9 +3,11 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { App } from "./App";
-import { BenchMark } from "./components/Benchmark";
-import { FiberDemo } from "./components/Fiber/FiberDemo";
 import "./index.css";
+import { BenchMark } from "./pages/Benchmark";
+import { FiberDemo } from "./pages/Fiber/FiberDemo";
+import { SimpleScene } from "./pages/SimpleScene/SimpleScene";
+import { Thanks } from "./pages/Thanks/Thanks";
 
 const router = createBrowserRouter([
   {
@@ -17,8 +19,16 @@ const router = createBrowserRouter([
         element: <BenchMark />,
       },
       {
+        path: "simple-scene",
+        element: <SimpleScene />,
+      },
+      {
         path: "fiber",
         element: <FiberDemo />,
+      },
+      {
+        path: "thanks",
+        element: <Thanks />,
       },
     ],
   },

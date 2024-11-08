@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Canvas, useFrame } from "@react-three/fiber";
 import React from "react";
 import { Mesh } from "three";
@@ -22,7 +23,7 @@ const RotatingCube = () => {
 
 export const R3fExample = () => {
   return (
-    <div
+    <section
       style={{
         display: "flex",
         alignItems: "center",
@@ -32,11 +33,8 @@ export const R3fExample = () => {
     >
       <p>{"React Three Fiber"}</p>
       <Canvas camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 0, 1.5] }}>
-        <color attach="background" args={["black"]} />
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
         <RotatingCube />
       </Canvas>
-    </div>
+    </section>
   );
 };
